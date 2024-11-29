@@ -1,0 +1,67 @@
+public class Warunganee {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] namaItems = new String[10];  
+        double[] hargaItems = new double[10];  
+        int[] jumlahItems = new int[10];       
+        double totalHarga = 0;  
+        int itemCount = 0;      
+
+        System.out.println("=== WARUNG ANEE ===");
+
+        while (true) {
+            namaItems[itemCount] = inputNamaItem(scanner);
+            hargaItems[itemCount] = inputHargaItem(scanner);
+            jumlahItems[itemCount] = inputJumlahItem(scanner);
+            totalHarga += hargaItems[itemCount] * jumlahItems[itemCount];
+
+            System.out.print("Tambah item lagi? (ya/tidak): ");
+            String tambahItem = scanner.nextLine();  
+
+            itemCount++;
+
+            if (itemCount >= 10 || !tambahItem.equalsIgnoreCase("ya")) {
+                break;  
+            }
+        }
+
+        System.out.println("\n=== Daftar Pembelian ===");
+        for (int i = 0; i < itemCount; i++) {
+            System.out.printf("%-10s: %d x %.2f = %.2f\n", namaItems[i], jumlahItems[i], hargaItems[i], hargaItems[i] * jumlahItems[i]);
+        }
+        System.out.printf("\nTotal Harga: %.2f\n", totalHarga);
+        double pembayaran = inputPembayaran(scanner);
+
+        if (pembayaran >= totalHarga) {
+            System.out.printf("Kembalian: %.2f\n", pembayaran - totalHarga);
+        } else {
+            System.out.printf("Uang tidak cukup, kurang: %.2f\n", totalHarga - pembayaran);
+        }
+
+        System.out.println("Terima kasih telah berbelanja!");
+        scanner.close();
+    }
+    public static String inputNamaItem(Scanner scanner) {
+        System.out.print("Masukkan nama item: ");
+        return scanner.nextLine(); 
+    }
+    public static double inputHargaItem(Scanner scanner) {
+        System.out.print("Masukkan harga item: ");
+        double harga = scanner.nextDouble(); 
+        scanner.nextLine(); 
+        return harga;
+    }
+    public static int inputJumlahItem(Scanner scanner) {
+        System.out.print("Masukkan jumlah item: ");
+        int jumlah = scanner.nextInt();  
+        scanner.nextLine(); 
+        return jumlah;
+    }
+    public static double inputPembayaran(Scanner scanner) {
+        System.out.print("Masukkan jumlah uang yang dibayarkan: ");
+        double pembayaran = scanner.nextDouble();  
+        scanner.nextLine();
+        return pembayaran;
+    }
+}
